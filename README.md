@@ -17,3 +17,4 @@ A simple **menu-driven To-Do List Manager** developed using C programming.
 
 ## How to Run
 1. Compile the program using a C compiler:
+2. Run the program:
