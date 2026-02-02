@@ -28,7 +28,7 @@ int main()
         {
             case 1:
                 printf("Enter task name: ");
-                scanf(" %[^\n]", tasks[n].name);  // reads full line without fgets
+                scanf(" %[^\n]", tasks[n].name);
                 tasks[n].completed = 0;
                 n++;
                 printf("Task added successfully!\n");
@@ -56,7 +56,7 @@ int main()
                 printf("Enter task number to mark as completed: ");
                 scanf("%d", &taskNo);
 
-                index = taskNo - 1;   // simple variable for clarity
+                index = taskNo - 1; 
 
                 if (index >= 0 && index < n) 
                 {
@@ -73,7 +73,7 @@ int main()
                 printf("Enter task number to delete: ");
                 scanf("%d", &taskNo);
 
-                index = taskNo - 1;   // again, simple and readable
+                index = taskNo - 1; 
 
                 if (index >= 0 && index < n) 
                 {
@@ -99,4 +99,5 @@ int main()
         }
     }
 }
+
 
