@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include <string.h>
+
 struct Task 
 {
     char name[50];
     int completed; // 0 = pending, 1 = done
 };
+
 int main() 
 {
     struct Task tasks[50];
-    int n = 0, choice, i, taskNo;
+    int n = 0;
+    int choice, i, taskNo, index;
 
-    while(1) 
+    while (1) 
     {
         printf("\n--- Smart To-Do List Manager ---\n");
         printf("1. Add Task\n");
@@ -20,30 +23,31 @@ int main()
         printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        getchar(); // consume newline
 
-        switch(choice) 
+        switch (choice) 
         {
             case 1:
                 printf("Enter task name: ");
-                fgets(tasks[n].name, sizeof(tasks[n].name), stdin);
-                tasks[n].name[strcspn(tasks[n].name, "\n")] = 0; // remove newline
+                scanf(" %[^\n]", tasks[n].name);  // reads full line without fgets
                 tasks[n].completed = 0;
                 n++;
                 printf("Task added successfully!\n");
                 break;
 
             case 2:
-                if(n == 0) 
+                if (n == 0) 
                 {
                     printf("No tasks found.\n");
                 } 
                 else 
                 {
                     printf("\nTask List:\n");
-                    for(i = 0; i < n; i++) 
+                    for (i = 0; i < n; i++) 
                     {
-                        printf("%d. %s [%s]\n", i+1, tasks[i].name, tasks[i].completed ? "Done" : "Pending");
+                        if (tasks[i].completed == 1)
+                            printf("%d. %s [Done]\n", i + 1, tasks[i].name);
+                        else
+                            printf("%d. %s [Pending]\n", i + 1, tasks[i].name);
                     }
                 }
                 break;
@@ -51,9 +55,12 @@ int main()
             case 3:
                 printf("Enter task number to mark as completed: ");
                 scanf("%d", &taskNo);
-                if(taskNo >=1 && taskNo <= n) 
+
+                index = taskNo - 1;   // simple variable for clarity
+
+                if (index >= 0 && index < n) 
                 {
-                    tasks[taskNo-1].completed = 1;
+                    tasks[index].completed = 1;
                     printf("Task marked as completed!\n");
                 } 
                 else 
@@ -65,11 +72,14 @@ int main()
             case 4:
                 printf("Enter task number to delete: ");
                 scanf("%d", &taskNo);
-                if(taskNo >=1 && taskNo <= n) 
+
+                index = taskNo - 1;   // again, simple and readable
+
+                if (index >= 0 && index < n) 
                 {
-                    for(i = taskNo-1; i < n-1; i++) 
+                    for (i = index; i < n - 1; i++) 
                     {
-                        tasks[i] = tasks[i+1];
+                        tasks[i] = tasks[i + 1];
                     }
                     n--;
                     printf("Task deleted successfully!\n");
@@ -89,3 +99,4 @@ int main()
         }
     }
 }
+
